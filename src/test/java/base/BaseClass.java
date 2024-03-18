@@ -9,12 +9,19 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+
+import utilities.ExcelReader;
+import utilities.PropertiesReader;
 
 public class BaseClass {
 	
 	public  static WebDriver driver;
-	public  String browserName = "chrome"; // Chrome,Firefox,Edge,IE,Safari
-	String sURL = "https://credosystemz2-dev-ed.my.salesforce.com/";
+	public static String fileName = "Environment";
+	public  String browserName = PropertiesReader.getPropertyValue(fileName, "Browser"); // Chrome,Firefox,Edge,IE,Safari
+	String sURL = PropertiesReader.getPropertyValue(fileName, "URL");
+	public String excelFileName="";
+	
 	
 	@BeforeClass
 	public  void invokeBrower() {
@@ -43,7 +50,9 @@ public class BaseClass {
 		}
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.get(sURL);;
+		driver.manage().window().maximize();
+		driver.get(sURL);
+		
 	}
 	
 	@AfterClass	
@@ -51,6 +60,12 @@ public class BaseClass {
 		driver.quit();
 	}
 	
+
+	@DataProvider(name = "TestCaseData")
+	public Object[][] excelData(){
+		Object[][] values = ExcelReader.getValueFromExcel(excelFileName);
+		return values;
+	}
 	
 
 }

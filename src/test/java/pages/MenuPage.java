@@ -12,9 +12,32 @@ public class MenuPage extends BaseClass{
 	protected By logoutLink = By.xpath("//a[text()='Log Out']");
 	protected By userImg=By.xpath("(//span[@class='uiImage']/parent::div[@data-aura-class='forceEntityIcon'])[1]");
 
+	
+	public MenuPage clickOnAppLauncher() {
+		driver.findElement(applauncherIcon).click();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return this;
+	}
+	
+
+	public SalesPage clickOnSales() { 
+		driver.findElement(salesLink).click();
+		return new SalesPage();
+	}
+	
+	public MenuPage clickOnViewAll() {
+		driver.findElement(viewAllLink).click();
+		return this;
+	}
+	
 	public MenuPage clickUserImg()   {
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
