@@ -20,7 +20,13 @@ public class SalesPage extends MenuPage{
 	
 	private By statusTxt=By.xpath("//span[@title='Working - Contacted']");
 	private By savebtn=By.xpath("//button[@name='SaveEdit']");
-	//private WebDriver driver;
+	private WebDriver driver;
+	
+	public SalesPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+	}
+	
 	    
 	public SalesPage clickOnLeadsLink() {
 		WebDriverWait oWait = new WebDriverWait(driver, Duration.ofSeconds(20));

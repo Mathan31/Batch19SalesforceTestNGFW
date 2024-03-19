@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import base.BaseClass;
+import libraries.FakerDataFactory;
 import pages.LoginPage;
 
 public class TC02_CreateLead extends BaseClass{
@@ -14,8 +15,8 @@ public class TC02_CreateLead extends BaseClass{
 	}
 			
 	@Test(priority = 2,dataProvider = "TestCaseData")
-	public void createSalesLeadWithmandatoryFields(String uName,String password,String lName,String companyName) {
-		boolean result = new LoginPage()
+	public void createSalesLeadWithmandatoryFields(String uName,String password) {
+		boolean result = new LoginPage(driver)
 		.enterUserName(uName)
 		.enterPassword(password)
 		.clickOnLogin()
@@ -25,8 +26,8 @@ public class TC02_CreateLead extends BaseClass{
 		.clickOnSales()
 		.clickOnLeadsLink()
 		.clickOnNewButton()
-		.enterLastName(lName)
-		.enterCompanyName(companyName)
+		.enterLastName(FakerDataFactory.getLastName())
+		.enterCompanyName(FakerDataFactory.getCompanyName())
 		.clickAndSelectLeadStatus()
 		.clickOnSaveButton()
 		.clickUserImg()

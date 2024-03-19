@@ -16,9 +16,9 @@ import utilities.PropertiesReader;
 
 public class BaseClass {
 	
-	public  static WebDriver driver;
-	public static String fileName = "Environment";
-	public  String browserName = PropertiesReader.getPropertyValue(fileName, "Browser"); // Chrome,Firefox,Edge,IE,Safari
+	public WebDriver driver; //11111
+	public String fileName = "Environment";
+	public String browserName = PropertiesReader.getPropertyValue(fileName, "Browser"); // Chrome,Firefox,Edge,IE,Safari
 	String sURL = PropertiesReader.getPropertyValue(fileName, "URL");
 	public String excelFileName="";
 	
