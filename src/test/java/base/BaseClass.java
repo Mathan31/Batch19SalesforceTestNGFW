@@ -12,7 +12,9 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
 import libraries.HTMLReport;
@@ -26,7 +28,17 @@ public class BaseClass extends HTMLReport{
 	public String browserName = PropertiesReader.getPropertyValue(fileName, "Browser"); // Chrome,Firefox,Edge,IE,Safari
 	String sURL = PropertiesReader.getPropertyValue(fileName, "URL");
 	public String excelFileName="";
+	public String testName,testDescription,testModule;
 	
+	@BeforeSuite
+	public void reportInit() {
+		startReport();
+	}
+	
+	@AfterSuite
+	public void wrapReport() {
+		endReport();
+	}
 	
 	@BeforeClass
 	public  void invokeBrower() {
@@ -57,7 +69,8 @@ public class BaseClass extends HTMLReport{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		driver.manage().window().maximize();
 		driver.get(sURL);
-		
+		startTestCase(testName, testDescription);
+		startTestcase(testModule);
 	}
 	
 	@AfterClass	

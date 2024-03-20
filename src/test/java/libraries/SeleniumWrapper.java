@@ -15,6 +15,7 @@ import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,6 +23,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.aventstack.extentreports.ExtentTest;
 
 import base.BaseClass;
+import pages.SalesPage;
 
 public class SeleniumWrapper extends BaseClass{
 	
@@ -98,6 +100,36 @@ public void click(WebElement ele,String eleName) {
 	} catch (WebDriverException e) {
 		reportStep("Unknown exception occured while clicking in the field :", "FAIL");
 	} 
+}
+
+public void moveToElementAndClick(WebElement ele,String eleName) {
+	try {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(ele));			
+		Actions actions = new Actions(driver);
+		actions.moveToElement(ele).click().perform();
+		reportStep("The element "+eleName+" is clicked", "PASS");
+	} catch (InvalidElementStateException e) {
+		reportStep("The element: "+eleName+" could not be clicked", "FAIL");
+	} catch (WebDriverException e) {
+		reportStep("Unknown exception occured while clicking in the field :", "FAIL");
+	} 
+	
+}
+
+public void moveToElement(WebElement ele,String eleName) {
+	try {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(ele));			
+		Actions actions = new Actions(driver);
+		actions.moveToElement(ele).perform();
+		reportStep("The control is moved to element "+eleName, "PASS");
+	} catch (InvalidElementStateException e) {
+		reportStep("The control is not moved to element "+eleName, "FAIL");
+	} catch (WebDriverException e) {
+		reportStep("Unknown exception occured while clicking in the field :", "FAIL");
+	} 
+	
 }
 
 public void clickWithNoSnap(WebElement ele) {
@@ -307,6 +339,8 @@ public boolean verifyDisplayedwithReturn(WebElement ele,String element) {
 	}
 	return result;
 }
+
+
 
 public void switchToWindow(int index) {
 	try {
